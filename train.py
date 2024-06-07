@@ -1,7 +1,6 @@
-import tensorflow as tf
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
-from keras.src.legacy.preprocessing.image import ImageDataGenerator
+from keras.preprocessing.image import ImageDataGenerator
 import numpy as np
 
 
@@ -13,18 +12,18 @@ test_datagen = ImageDataGenerator(rescale=1./255)
 train_generator = train_datagen.flow_from_directory(
         'dataset/train',
         target_size=(48, 48),
-        batch_size=32,
+        batch_size=8,
         class_mode='categorical',
         shuffle=True)
 
 test_generator = test_datagen.flow_from_directory(
         'dataset/test',
         target_size=(48, 48),
-        batch_size=32,
+        batch_size=8,
         class_mode='categorical',
         shuffle=False)
 
-model = tf.keras.Sequential([
+model = Sequential([
     Conv2D(32, (3, 3), activation='relu', input_shape=(48, 48, 3)),
     MaxPooling2D(pool_size=(2, 2)),
     Conv2D(64, (3, 3), activation='relu'),
